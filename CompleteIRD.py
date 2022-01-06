@@ -225,11 +225,13 @@ class taxCalculation():
 
     def display_information(self, number):
         for i in range(number):
-            print(f''' Name [{i+1}]: {self.name[i]} 
+            print(f''' 
+            *****Here m resefrs to married y referse to yes and n refers to no********
+                Name [{i+1}]: {self.name[i]} 
                 Address of [{self.name[i]}]: {self.address[i]} 
                 Contact of [{self.name[i]}]: {self.phone[i]}
                 Maritial Status of [{self.name[i]}]: {self.maritial_status[i]}
-                Insurance Detilsof [{self.name[i]}]: {self.insurancedetails[i]}
+                Insurance Detils of [{self.name[i]}]: {self.insurancedetails[i]}
                 Diplomatic Status of [{self.name[i]}]:{self.diplomat[i]}
                 Foreign Allowanceof [{self.name[i]}]: {self.allowances[i]}
                 Monthly Salary of [{self.name[i]}]: {self.salary[i]}
@@ -244,11 +246,12 @@ class taxCalculation():
         for i in range(number):
 
             data.write(f''' 
+            *****Here m resefrs to married y referse to yes and n refers to no********
                 Name [{i+1}]: {self.name[i]} 
                 Address of [{self.name[i]}]: {self.address[i]} 
                 Contact of [{self.name[i]}]: {self.phone[i]}
                 Maritial Status of [{self.name[i]}]: {self.maritial_status[i]}
-                Insurance Detilsof [{self.name[i]}]: {self.insurancedetails[i]}
+                Insurance Detils of [{self.name[i]}]: {self.insurancedetails[i]}
                 Diplomatic Status of [{self.name[i]}]:{self.diplomat[i]}
                 Foreign Allowanceof [{self.name[i]}]: {self.allowances[i]}
                 Monthly Salary of [{self.name[i]}]: {self.salary[i]}

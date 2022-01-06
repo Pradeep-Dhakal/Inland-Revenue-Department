@@ -1,0 +1,14 @@
+ 
+            *****Here m resefrs to married y referse to yes and n refers to no********
+                Name [1]: pradeep dhakal 
+                Address of [pradeep dhakal]: kathmandu 
+                Contact of [pradeep dhakal]: 9861893027
+                Maritial Status of [pradeep dhakal]: n
+                Insurance Detils of [pradeep dhakal]: n
+                Diplomatic Status of [pradeep dhakal]:n
+                Foreign Allowanceof [pradeep dhakal]: 0
+                Monthly Salary of [pradeep dhakal]: 7000000
+                Total_Tax of [pradeep dhakal]: 29960000.0 
+                _______________________________
+
+                
