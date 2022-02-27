@@ -3,6 +3,8 @@ from datetime import date
 from os import name
 from typing import final
 
+import mysqlx
+
 
 today = date.today()
 
@@ -22,45 +24,6 @@ allowances = []
 grandTotalFinalTax = []
 
 
-def StaticInformation():
-    print(
-        '''
-                        Income Tax Calculation System
-                        --->>Lazimpat<---->Kathmandu<<--
-____________________________________________________________________________________
-    '''
-    )
-    print("आन्तरिक राजस्व विभाग  \t\t\t\t\t\t Date:", today)
-    print("__________________________________________________________")
-
-
-def EmployeeInformation(Num_of_people):
-    for i in range(Num_of_people):
-        name.append(input(f"[{i+1}] Enter your name : "))
-        address.append(input(f"[{i+1}] Enter your address : "))
-        Phone.append(input(f"[{i+1}] Enter your phone number : "))
-        age.append(int(input(f"[{i+1}] Enter your age : ")))
-        gender.append(input(f"[{i+1}] enter your gender : M : F: "))
-        maritial_status.append(
-            input(f"[{i+1}] are you married or not? if yes enter M else n : "))
-        insuranceDetails.append(input(
-            f"[{i+1}] Enter insurance details done or not if yes type [Y] else type [N] : "))
-        disabilityCheck.append(input(
-            f"[{i+1}] Do You have any Disabilities ? if yes type [y] else type [N] : "))
-        diplomatJob.append(input(
-            f"[{i+1}] DO you have diplomat job? if yes type [Y] else type [N] : "))
-        if diplomatJob[i].lower() == "y":
-            allowances.append(
-                int(input(f"[{i+1} Enter your foreign Allowances: ")))
-        else:
-            allowances.insert(i, 0)
-
-        salary.append(int(input(f"[{i+1}] Enter your monthly salary : ")))
-        print("________________________________________________________")
-
-    return salary,  maritial_status, diplomatJob, disabilityCheck, gender, name, address, Phone, insuranceDetails, allowances
-
-
 class taxCalculation():
     def __init__(self, salary,  maritial_status, diplomat, disability, gender, name, address, age, Phone, insuranceDetails, allowances, grandTotalFinalTax):
         self.salary = salary
@@ -76,7 +39,44 @@ class taxCalculation():
         self.allowances = allowances
         self.grandTotalFinalTax = grandTotalFinalTax
 
-    #  Tax calculation for ganeral people
+    @staticmethod
+    def StaticInformation():
+        print(
+            '''
+                            Income Tax Calculation System
+                            --->>Lazimpat<---->Kathmandu<<--
+    ____________________________________________________________________________________
+        '''
+        )
+        print("आन्तरिक राजस्व विभाग  \t\t\t\t\t\t Date:", today)
+        print("__________________________________________________________")
+
+    @classmethod
+    def EmployeeInformation(self, Num_of_people):
+        for i in range(Num_of_people):
+            name.append(input(f"[{i+1}] Enter your name : "))
+            address.append(input(f"[{i+1}] Enter your address : "))
+            Phone.append(input(f"[{i+1}] Enter your phone number : "))
+            age.append(int(input(f"[{i+1}] Enter your age : ")))
+            gender.append(input(f"[{i+1}] enter your gender : M : F: "))
+            maritial_status.append(
+                input(f"[{i+1}] are you married or not? if yes enter M else n : "))
+            insuranceDetails.append(input(
+                f"[{i+1}] Enter insurance details done or not if yes type [Y] else type [N] : "))
+            disabilityCheck.append(input(
+                f"[{i+1}] Do You have any Disabilities ? if yes type [y] else type [N] : "))
+            diplomatJob.append(input(
+                f"[{i+1}] DO you have diplomat job? if yes type [Y] else type [N] : "))
+            if diplomatJob[i].lower() == "y":
+                allowances.append(
+                    int(input(f"[{i+1} Enter your foreign Allowances: ")))
+            else:
+                allowances.insert(i, 0)
+
+            salary.append(int(input(f"[{i+1}] Enter your monthly salary : ")))
+            print("________________________________________________________")
+
+        return salary,  maritial_status, diplomatJob, disabilityCheck, gender, name, address, Phone, insuranceDetails, allowances
 
     def CalculateIndividual(self, monthlysalary):
         yearly_Salary = monthlysalary*12
@@ -170,16 +170,14 @@ class taxCalculation():
             taxable_allowance = self.allowances[i]*0.25
             total_diplmat_taxable_income = taxable_allowance+self.salary[i]
             disability_salary = self.salary[i]/2
-            # final_taxable_income = total_diplmat_taxable_income+disability_salary
             if self.maritial_status[i].lower() == "y":
                 if self.disability[i].lower() == "y" and self.diplomat[i].lower() == "y":
-                    # int("Foreign allowances: ")
 
                     total_tax = self.CalculateCouple(
                         total_diplmat_taxable_income+disability_salary)
                     final_tax.append(total_tax)
                     print("total tax: ", total_tax)
-                    # return total_tax
+
                 elif self.diplomat[i].lower() == "y":
                     total_tax = self.CalculateCouple(
                         total_diplmat_taxable_income)
@@ -241,6 +239,8 @@ class taxCalculation():
                 ''')
         return grandTotalFinalTax
 
+
+
     def SaveData(self, number):
         data = open("data.txt", "w")
         for i in range(number):
@@ -260,18 +260,30 @@ class taxCalculation():
 
                 ''')
 
+    def saveintodatabase(self):
+        for i in range(2):
+            import mysql.connector
+            mydatabase = mysql.connector.connect(host="localhost", user="root", passwd="", database="tax")
+            cursor = mydatabase.cursor()
+            query="insert into taxtable(name, address,contact,maritial_status,insurance_detail,diplomat_ststus,monthly_salary,foreign_allowance,total_tax) values(%s,%s,%s,%s,%s,%s,%s,%s,%s)"
+            values=(self.name[i],self.address[i],self.phone[i],self.maritial_status[i],self.insurancedetails[i],self.diplomat[i],self.salary[i],self.allowances[i],self.grandTotalFinalTax[i])
+            cursor.execute(query,values)
+            mydatabase.commit()
+            mydatabase.close()
+
 
 def main():
-    StaticInformation()
+    taxCalculation.StaticInformation()
     Num_of_people = int(input("Number Of Customers: "))
-    salary, maritial_status, diplomatJob, disabilityCheck, gender, name, address, Phone, insuranceDetails, allowances = EmployeeInformation(
-        Num_of_people)
+    salary, maritial_status, diplomatJob, disabilityCheck, gender, name, address, Phone, insuranceDetails, allowances = taxCalculation.EmployeeInformation(Num_of_people)
+
     tcal = taxCalculation(salary, maritial_status, diplomatJob, disabilityCheck,
                           gender, name, address, age, Phone, insuranceDetails, allowances, grandTotalFinalTax)
 
     tcal.calculate_tax(Num_of_people)
     tcal.display_information(Num_of_people)
     tcal.SaveData(Num_of_people)
+    tcal.saveintodatabase()
 
 
 if __name__ == "__main__":

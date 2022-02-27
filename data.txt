@@ -7,8 +7,21 @@
                 Insurance Detils of [pradeep dhakal]: n
                 Diplomatic Status of [pradeep dhakal]:n
                 Foreign Allowanceof [pradeep dhakal]: 0
-                Monthly Salary of [pradeep dhakal]: 7000000
-                Total_Tax of [pradeep dhakal]: 29960000.0 
+                Monthly Salary of [pradeep dhakal]: 8888889
+                Total_Tax of [pradeep dhakal]: 38120000.48 
+                _______________________________
+
+                 
+            *****Here m resefrs to married y referse to yes and n refers to no********
+                Name [2]: deo 
+                Address of [deo]: tha xaina  
+                Contact of [deo]: 999
+                Maritial Status of [deo]: n
+                Insurance Detils of [deo]: y
+                Diplomatic Status of [deo]:y
+                Foreign Allowanceof [deo]: 777
+                Monthly Salary of [deo]: 888888
+                Total_Tax of [deo]: 5480833.4 
                 _______________________________
 
                 
